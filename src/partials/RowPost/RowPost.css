@@ -19,3 +19,11 @@
     display: none;
 }
 
+.small-poster-img{
+    max-height: 150px;
+    margin-right: 10px;
+}
+.rowtitle{
+    padding: 5px 0 15px 18px;
+
+}

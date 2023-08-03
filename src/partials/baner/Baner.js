@@ -1,22 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
+import { API_key, baceImageUrl } from "../../Constent/Constent";
+import axios from '../../axios'
+
+
 import './Baner.css'
 
+
 function Baner() {
+    const [movie, setMovie] = useState()
+
+    useEffect(() => {
+        axios.get(`https://api.themoviedb.org/3/trending/all/week?api_key=${API_key}&language=en-US`).then((Response) => {
+            console.log(Response.data.results[19]);
+            setMovie(Response.data.results[2])
+        })
+    }, [])
+
+
     return (
-        <div className="baner">
+        <div style={{ backgroundImage: `url(${movie ? baceImageUrl + movie.backdrop_path : ''})` }} className="baner">
+            <div className="fade">
             <div className="content">
-                <h1 className="title">movie name</h1>
+                <h1 className="title">{movie?.title}</h1>
                 <div className="baner_buttons">
                     <button className="button">play</button>
                     <button className="button">my list</button>
                 </div>
                 <h1 className="description">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium molestiae fugit porro ea exercitationem distinctio corrupti doloribus veritatis magnam vitae molestias sint aliquam aut nisi neque, qui a perspiciatis commodi!
+                    {movie ? movie.overview : ''}
                 </h1>
             </div>
-            <div className="fade">
-                
             </div>
+
         </div>
     );
 }
